@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QR SCANER - Hunter XMD Style</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+    body {
+      height: 100vh;
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, #dfe9f3 0%, #ffffff 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.3s;
+      color: #222;
+      position: relative;
+    }
+    body.dark {
+      background: #1c1c1c;
+      color: #eee;
+    }
+    .container {
+      background: rgba(255,255,255,0.6);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+    }
+    body.dark .container {
+      background: rgba(50, 50, 50, 0.8);
+      border-color: rgba(255,255,255,0.1);
+      color: #eee;
+    }
+    img#qr-image {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(74, 71, 163, 0.7);
+      margin-bottom: 1.5rem;
+    }
+    h2 {
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: inherit;
+    }
+    .legend {
+      font-weight: 400;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    body.dark .legend {
+      color: #aaa;
+    }
+    /* Cercle de progression à 50px */
+    .progress-circle {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 1.5rem auto;
+    }
+    svg {
+      transform: rotate(-90deg);
+      width: 50px;
+      height: 50px;
+    }
+    circle.bg {
+      fill: none;
+      stroke: #ccc;
+      stroke-width: 8;
+    }
+    circle.progress {
+      fill: none;
+      stroke-width: 8;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+    }
+    .progress-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #4A47A3;
+      transition: color 0.3s ease;
+    }
+    body.dark .progress-text {
+      color: #6c63ff;
+    }
+    .reload-button {
+      display: inline-block;
+      padding: 10px 25px;
+      background-color: #4A47A3;
+      color: #fff;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(74,71,163,0.7);
+      transition: background-color 0.3s ease;
+    }
+    .reload-button:hover {
+      background-color: #6c63ff;
+      box-shadow: 0 6px 15px rgba(108,99,255,0.9);
+    }
+    /* Dark mode toggle button */
+    #darkModeToggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.8rem;
+      color: #4A47A3;
+      transition: color 0.3s;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    #darkModeToggle:hover {
+      color: #6c63ff;
+      background-color: rgba(106, 99, 255, 0.1);
+    }
+
+    body.dark #darkModeToggle {
+      color: #9f79ff;
+    }
+
+    /* Icons */
+    #darkModeToggle svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+    #moonIcon {
+      display: none;
+    }
+    body.dark #moonIcon {
+      display: block;
+    }
+    body.dark #sunIcon {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <button id="darkModeToggle" aria-label="Toggle dark mode">
+    <!-- Sun icon (for light mode) -->
+    <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    <!-- Moon icon (for dark mode) -->
+    <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+    </svg>
+  </button>
+
+  <div class="container" role="main" aria-label="QR Code Scanner">
+    <img id="qr-image" src="/server" alt="GAARA-XMD QR Code" />
+    <h2 id="main">GAARA-XMD</h2>
+    <p class="legend" id="legend">Scan The QR Code</p>
+
+    <!-- Progression circulaire -->
+    <div class="progress-circle" aria-label="Countdown Timer">
+      <svg>
+        <defs>
+          <linearGradient id="gradientGreen" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4CAF50" />
+            <stop offset="100%" stop-color="#388E3C" />
+          </linearGradient>
+          <linearGradient id="gradientYellow" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FFEB3B" />
+            <stop offset="100%" stop-color="#FBC02D" />
+          </linearGradient>
+          <linearGradient id="gradientRed" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F44336" />
+            <stop offset="100%" stop-color="#D32F2F" />
+          </linearGradient>
+        </defs>
+        <circle class="bg" cx="25" cy="25" r="22"></circle>
+        <circle class="progress" cx="25" cy="25" r="22" stroke-dasharray="138" stroke-dashoffset="0" stroke="url(#gradientGreen)"></circle>
+      </svg>
+      <div class="progress-text" id="progressText" style="color: #4CAF50;">30</div>
+    </div>
+
+    <a href="javascript:location.reload()" class="reload-button">Reload Page</a>
+  </div>
+
+  <script>
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const body = document.body;
+    const sunIcon = document.getElementById("sunIcon");
+    const moonIcon = document.getElementById("moonIcon");
+
+    // Initial icon setup based on current theme
+    if (body.classList.contains("dark")) {
+      sunIcon.style.display = "none";
+      moonIcon.style.display = "block";
+    } else {
+      sunIcon.style.display = "block";
+      moonIcon.style.display = "none";
+    }
+
+    darkModeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      if (body.classList.contains("dark")) {
+        sunIcon.style.display = "none";
+        moonIcon.style.display = "block";
+      } else {
+        sunIcon.style.display = "block";
+        moonIcon.style.display = "none";
+      }
+    });
+
+    let timeleft = 30;
+    const progressCircle = document.querySelector('circle.progress');
+    const progressText = document.getElementById('progressText');
+    const mainText = document.getElementById("main");
+    const legend = document.getElementById("legend");
+
+    const radius = 22;
+    const circumference = 2 * Math.PI * radius; // ≈ 138
+    progressCircle.style.strokeDasharray = circumference;
+    progressCircle.style.strokeDashoffset = 0;
+
+    function setProgress(seconds) {
+      const offset = circumference - (seconds / 30) * circumference;
+      progressCircle.style.strokeDashoffset = offset;
+    }
+
+    function updateColor(seconds) {
+      let gradientId, color;
+
+      if (seconds > 15) {
+        gradientId = "gradientGreen";
+        color = "#4CAF50"; // vert
+      } else if (seconds > 5) {
+        gradientId = "gradientYellow";
+        color = "#FFEB3B"; // jaune
+      } else {
+        gradientId = "gradientRed";
+        color = "#F44336"; // rouge
+      }
+
+      progressCircle.setAttribute("stroke", `url(#${gradientId})`);
+      progressText.style.color = color;
+    }
+
+    const downloadTimer = setInterval(() => {
+      if (timeleft <= 0) {
+        clearInterval(downloadTimer);
+        // Cache la progression circulaire
+        document.querySelector('.progress-circle').style.display = 'none';
+        mainText.textContent = "QR Expired! Please reload";
+        legend.textContent = "";
+
+        // Reload automatique après expiration
+        setTimeout(() => {
+          location.reload();
+        }, 1500);
+      } else {
+        setProgress(timeleft);
+        updateColor(timeleft);
+        progressText.textContent = timeleft;
+      }
+      timeleft -= 1;
+    }, 1000);
+  </script>
+</body>
+  </html>
+  
