@@ -1,178 +1,126 @@
+
 const { makeid } = require('./gen-id');
 const express = require('express');
 const fs = require('fs');
-let router = express.Router();
+const router = express.Router();
 const pino = require("pino");
-const { default: makeWASocket, useMultiFileAuthState, delay, Browsers, makeCacheableSignalKeyStore, getAggregateVotesInPollMessage, DisconnectReason, WA_DEFAULT_EPHEMERAL, jidNormalizedUser, proto, getDevice, generateWAMessageFromContent, fetchLatestBaileysVersion, makeInMemoryStore, getContentType, generateForwardMessageContent, downloadContentFromMessage, jidDecode } = require('@whiskeysockets/baileys')
-
 const { upload } = require('./mega');
+const {
+  default: makeWASocket,
+  useMultiFileAuthState,
+  delay,
+  Browsers,
+  makeCacheableSignalKeyStore
+} = require('@whiskeysockets/baileys');
+
 function removeFile(FilePath) {
-    if (!fs.existsSync(FilePath)) return false;
-    fs.rmSync(FilePath, { recursive: true, force: true });
+  if (fs.existsSync(FilePath)) fs.rmSync(FilePath, { recursive: true, force: true });
 }
+
 router.get('/', async (req, res) => {
-    const id = makeid();
-    let num = req.query.number;
-    async function HUNTER_XMD_PAIR_CODE() {
-        const {
-            state,
-            saveCreds
-        } = await useMultiFileAuthState('./temp/' + id);
-        try {
-var items = ["Safari"];
-function selectRandomItem(array) {
-  var randomIndex = Math.floor(Math.random() * array.length);
-  return array[randomIndex];
-}
-var randomItem = selectRandomItem(items);
+  const id = makeid();
+  let num = req.query.number;
+
+  async function HUNTER_XMD_PAIR_CODE() {
+    const { state, saveCreds } = await useMultiFileAuthState('./temp/' + id);
+
+    try {
+      const sock = makeWASocket({
+        auth: {
+          creds: state.creds,
+          keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }))
+        },
+        printQRInTerminal: false,
+        generateHighQualityLinkPreview: true,
+        logger: pino({ level: "fatal" }),
+        browser: Browsers.macOS("Safari")
+      });
+
+      if (!sock.authState.creds.registered) {
+        await delay(1500);
+        num = num.replace(/[^0-9]/g, '');
+        const code = await sock.requestPairingCode(num);
+          if (!res.headersSent) res.send({ code });
+      }
+
+      sock.ev.on('creds.update', saveCreds);
+
+      sock.ev.on("connection.update", async (s) => {
+        const { connection, lastDisconnect } = s;
+
+        if (connection === "open") {
+          await delay(5000);
+
+          const rf = `./temp/id/creds.json`;
+          const data = fs.readFileSync(rf);
+
+          const generateRandomText = () => 
+            const prefix = "3EB";
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let result = prefix;
+            for (let i = prefix.length; i < 22; i++) 
+              result += chars.charAt(Math.floor(Math.random() * chars.length));
             
-            let sock = makeWASocket({
-                auth: {
-                    creds: state.creds,
-                    keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" })),
-                },
-                printQRInTerminal: false,
-                generateHighQualityLinkPreview: true,
-                logger: pino({ level: "fatal" }).child({ level: "fatal" }),
-                syncFullHistory: false,
-                browser: Browsers.macOS(randomItem)
-            });
-            if (!sock.authState.creds.registered) {
-                await delay(1500);
-                num = num.replace(/[^0-9]/g, '');
-                const code = await sock.requestPairingCode(num);
-                if (!res.headersSent) {
-                    await res.send({ code });
-                }
-            }
-            sock.ev.on('creds.update', saveCreds);
-            sock.ev.on("connection.update", async (s) => {
+            return result;
+          ;
 
-    const {
-                    connection,
-                    lastDisconnect
-                } = s;
-                
-                if (connection == "open") {
-                    await delay(5000);
-                    let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);
-                    let rf = __dirname + `/temp/${id}/creds.json`;
-                    function generateRandomText() {
-                        const prefix = "3EB";
-                        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                        let randomText = prefix;
-                        for (let i = prefix.length; i < 22; i++) {
-                            const randomIndex = Math.floor(Math.random() * characters.length);
-                            randomText += characters.charAt(randomIndex);
-                        }
-                        return randomText;
-                    }
-                    const randomText = generateRandomText();
-                    try {
+          const randomText = generateRandomText();
 
+          try 
+            const mega_url = await upload(fs.createReadStream(rf), `{sock.user.id}.json`);
+            const sessionCode = "HUNTER~XMD~" + mega_url.replace("https://mega.nz/file/", "");
 
-                        
-                        const { upload } = require('./mega');
-                        const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
-                        const string_session = mega_url.replace('https://mega.nz/file/', '');
-                        let md = "HUNTER~XMD~" + string_session;
-                        let code = await sock.sendMessage(sock.user.id, { text: md });
-                        let desc = `*Hey there, HUNTER-XD User!* 👋🏻
+            const msg = await sock.sendMessage(sock.user.id, { text: sessionCode });
 
-Thanks for using *HUNTER-XMD* — your session has been successfully created!
+            const desc = `*✅ Session créée avec succès !*
 
-🔐 *Session ID:* Sent above  
-⚠️ *Keep it safe!* Do NOT share this ID with anyone.
+🔐 *Session ID:* Envoyée ci-dessus  
+⚠️ *Ne partagez pas ce lien.*
 
-——————
-
-*✅ Stay Updated:*  
-Join our official WhatsApp Channel:  
+*📣 Channel WhatsApp:*  
 https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a
 
-*💻 Source Code:*  
-Fork & explore the project on GitHub:  
+*💻 GitHub:*
 https://github.com/djexo-tech/hunter-xmd
 
-——————
+> © Powered by Hisoka`;
 
-> *© Powered by Hisoka*
-Stay cool and hack smart. ✌🏻`; 
-                        await sock.sendMessage(sock.user.id, {
-text: desc,
-contextInfo: {
-externalAdReply: {
-title: "© powered by djexo-tech ",
-thumbnailUrl: "https://files.catbox.moe/0gzmp7.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a",
-mediaType: 1,
-renderLargerThumbnail: true
-}  
-}
-},
-{quoted:code })
-                    } catch (e) {
-                            let ddd = sock.sendMessage(sock.user.id, { text: e });
-                            let desc = `Hey there, HUNTER-XMD User!* 👋🏻
-
-Thanks for using *HUNTER-XMD* — your session has been successfully created!
-
-🔐 *Session ID:* Sent above  
-⚠️ *Keep it safe!* Do NOT share this ID with anyone.
-
-——————
-
-*✅ Stay Updated:*  
-Join our official WhatsApp Channel:  
-https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a
-
-*💻 Source Code:*  
-Fork & explore the project on GitHub:  
-https://github.com/djexo-tech/hunter-xmd
-
-——————
-
-> *© Powered by Hisoka*
-Stay cool and hack smart. ✌🏻`;
-                            await sock.sendMessage(sock.user.id, {
-text: desc,
-contextInfo: {
-externalAdReply: {
-title: "powered by djexo-tech",
-thumbnailUrl: "https://files.catbox.moe/0gzmp7.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a",
-mediaType: 2,
-renderLargerThumbnail: true,
-showAdAttribution: true
-}  
-}
-},
-{quoted:ddd })
-                    }
-                    await delay(10);
-                    await sock.ws.close();
-                    await removeFile('./temp/' + id);
-                    console.log(`👤 ${sock.user.id} 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 ✅ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...`);
-                    await delay(10);
-                    process.exit();
-                } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
-                    await delay(10);
-                    HUNTER_XMD_PAIR_CODE();
+            await sock.sendMessage(sock.user.id, {
+              text: desc,
+              contextInfo: {
+                externalAdReply: {
+                  title: "HUNTER XMD SESSION",
+                  thumbnailUrl: "https://files.catbox.moe/0gzmp7.jpg",
+                  sourceUrl: "https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a",
+                  mediaType: 1,
+                  renderLargerThumbnail: true
                 }
-            });
-        } catch (err) {
-            console.log("service restated");
-            await removeFile('./temp/' + id);
-            if (!res.headersSent) {
-                await res.send({ code: "❗ Service Unavailable" });
-            }
+              }
+            }, { quoted: msg });
+
+          } catch (e) {
+            await sock.sendMessage(sock.user.id, { text: `Erreur: ${e.message}` });
+          }
+
+          await delay(10);
+          sock.ws.close();
+          removeFile('./temp/' + id);
+          process.exit();
+
+        } else if (connection === "close" && lastDisconnect?.error?.output?.statusCode !== 401) {
+          await delay(10);
+          HUNTER_XMD_PAIR_CODE();
         }
+      });
+    } catch (err) {
+      console.log("Erreur service");
+      removeFile('./temp/' + id);
+      if (!res.headersSent) res.send({ code: "❗ Service Unavailable" });
     }
-   return await HUNTER_XMD_PAIR_CODE();
-});/*
-setInterval(() => {
-    console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");
-    process.exit();
-}, 180000); //30min*/
+  }
+
+  return await HUNTER_XMD_PAIR_CODE();
+});
+
 module.exports = router;
-              
+```
