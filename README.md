@@ -4,12 +4,6 @@ HUNTER XMD-Session-Generator
 
 ![Image Hisoka](https://files.catbox.moe/jtc93v.jpg)
 
-## 📊 Visitor Counter
-
-<p align="center">
-  <img src="https://profile-counter.glitch.me/djexo-tech/count.svg" alt="visitor counter"/>
-</p>
-
 ---
 
 ## 💡 Fork This Project
