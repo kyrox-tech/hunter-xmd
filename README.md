@@ -20,7 +20,9 @@ Generate session IDs for WhatsApp bots using [`@whiskeysockets/baileys`](https:/
 
 > ⚠️ This is the **same code** used on my live site:  
 
-[![HUNTER XMD SESSION](https://img.shields.io/badge/HUNTER_XMD_SESSION-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://hunter-xmd-5hki.onrender.com/)
+
+[![HUNTER XMD SESSION](https://img.shields.io/badge/HUNTER_XMD_SESSION-5865F2?style=for-the-badge)](https://hunter-xmd-5hki.onrender.com/)
+
  
 > 💬 Don't ask for more — just **fork**, **star**, **edit** ,and **deploy**!
 
