@@ -102,7 +102,7 @@ Stay cool and hack smart. ✌🏻`;
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "ɢᴀᴀʀᴀ-xᴍᴅ ᴘᴀɪʀ-ᴄᴏɴᴇᴄᴛ",
+title: "© powered by djexo-tech ",
 thumbnailUrl: "https://files.catbox.moe/0gzmp7.jpg",
 sourceUrl: "https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a",
 mediaType: 1,
@@ -138,7 +138,7 @@ Stay cool and hack smart. ✌🏻`;
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "ɢᴀᴀʀᴀ-xᴍᴅ ᴘᴀɪʀ-ᴄᴏɴᴇᴄᴛ",
+title: "powered by djexo-tech",
 thumbnailUrl: "https://files.catbox.moe/0gzmp7.jpg",
 sourceUrl: "https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a",
 mediaType: 2,
