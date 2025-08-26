@@ -21,6 +21,46 @@ Generate session IDs for WhatsApp bots using [`@whiskeysockets/baileys`](https:/
 > 💬 Don't ask for more — just **fork**, **star**, **edit** ,and **deploy**!
 
 ---
+# Deploy on github⤵️
+
+
+Crée un fichier *`.github/workflows/deploy.yml`* et colle ceci :
+
+
+name: Deploy WhatsApp Bot
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start Bot
+        env:
+          SESSION_ID: secrets.SESSION_ID 
+        run: |
+          echo "SESSION_ID" > session.json
+          node index.js
+          
+
+
+
+Ce workflow lit la session depuis le secret, la place dans `session.json`, puis lance ton bot avec `node index.js`. Ajuste si ton fichier principal a un autre nom.
 
 ## 🧩 Features
 
