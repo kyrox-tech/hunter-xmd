@@ -1,25 +1,26 @@
 
-   require('dotenv').config();
-   const mega = require('megajs');
+require('dotenv').config();
+const mega = require('megajs');
 
-   const EMAIL = process.env.MEGA_EMAIL;
-   const PASSWORD = process.env.MEGA_PASSWORD;
+const EMAIL = process.env.MEGA_EMAIL;
+const PASSWORD = process.env.MEGA_PASSWORD;
 
-   async function upload(fileStream, fileName) {
-     return new Promise((resolve, reject) => {
-       const storage = mega.storage({ email: EMAIL, password: PASSWORD });
+async function upload(fileStream, fileName) {
+  return new Promise((resolve, reject) => {
+    const storage = mega.storage({ email: EMAIL, password: PASSWORD });
 
-       storage.on('ready', () => {
-         const file = storage.upload({ name: fileName });
-         fileStream.pipe(file);
+    storage.on('ready', () => {
+      const file = storage.upload({ name: fileName });
 
-         file.on('complete', () => resolve(file.link));
-         file.on('error', reject);
-       });
+      fileStream.pipe(file);
 
-       storage.on('error', reject);
-     });
-   }
+      file.on('complete', () => resolve(file.link));
+      file.on('error', reject);
+    });
 
-   module.exports = { upload };
-   
+    storage.on('error', reject);
+  });
+}
+
+module.exports = { upload };
+ 
