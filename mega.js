@@ -1,26 +1,25 @@
 
-require('dotenv').config();
-const mega = require('megajs');
+const { Storage } = require('megajs');
 
-const EMAIL = process.env.MEGA_EMAIL;
-const PASSWORD = process.env.MEGA_PASSWORD;
+const storage = new Storage({
+  email: process.env.MEGA_EMAIL,
+  password: process.env.MEGA_PASSWORD
+});
 
-async function upload(fileStream, fileName) {
-  return new Promise((resolve, reject) => {
-    const storage = mega.storage({ email: EMAIL, password: PASSWORD });
+storage.login((err) => {
+  if (err) {
+    console.error('Erreur de connexion à Mega:', err);
+    return;
+  }
 
-    storage.on('ready', () => {
-      const file = storage.upload({ name: fileName });
+  console.log('Connecté à Mega avec succès.');
 
-      fileStream.pipe(file);
+  storage.mount((err) => {
+    if (err) {
+      console.error('Erreur lors du montage du stockage Mega:', err);
+      return;
+    }
 
-      file.on('complete', () => resolve(file.link));
-      file.on('error', reject);
-    });
-
-    storage.on('error', reject);
+    console.log('Stockage Mega monté.');
   });
-}
-
-module.exports = { upload };
- 
+});
