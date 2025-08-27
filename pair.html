@@ -1,394 +1,50 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HUNTER XMD</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HUNTER-XMD</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      height: 100vh;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #dfe9f3 0%, #ffffff 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      transition: background 0.4s, color 0.4s;
-      color: #111;
-    }
-
-    body.dark {
-      background: linear-gradient(135deg, #1e1e2f 0%, #121212 100%);
-      color: #ddd;
-    }
-
-    /* Dark mode overrides */
-    body.dark .box {
-      background: rgba(30, 30, 47, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-      color: #ddd;
-    }
-
-    body.dark #text h2 {
-      color: #ddd;
-    }
-
-    body.dark #text h6 {
-      color: #aaa;
-    }
-
-    body.dark .input-container {
-      background: #2c2c44;
-      border: 1px solid #444;
-    }
-
-    body.dark .input-container input {
-      color: #ddd;
-      background: transparent;
-    }
-
-    body.dark .input-container input:focus {
-      background: #44445a;
-      color: #fff;
-    }
-
-    body.dark .input-container button {
-      background: #6c63ff;
-      color: #fff;
-    }
-
-    body.dark .input-container button:hover {
-      background: #4a47a3;
-    }
-
-    body.dark .copy-container {
-      color: #9f79ff;
-    }
-
-    body.dark .copy-container:hover .copy-icon {
-      fill: #9f79ff;
-    }
-
-    body.dark .social-icons a {
-      color: #9f79ff;
-    }
-
-    body.dark .social-icons a:hover {
-      color: #ccc;
-    }
-
-    body.dark .glowing-text {
-      color: #9f79ff;
-      text-shadow: 0 0 8px #9f79ff, 0 0 15px #9f79ff;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 25px;
-      width: 100%;
-      max-width: 420px;
-      padding: 0 15px;
-    }
-
-    .box {
-      background: rgba(255, 255, 255, 0.6);
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      width: 100%;
-      padding: 40px 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease-in-out;
-    }
-
-    #text h2 {
-      font-size: 2rem;
-      color: #222;
+      background-color: #1e1e2f;
+      color: white;
+      font-family: Arial, sans-serif;
       text-align: center;
-      margin-bottom: 10px;
+      padding: 20px;
     }
-
-    #text h6 {
-      margin-bottom: 25px;
-      color: #555;
-      font-weight: 400;
-      text-align: center;
-      font-size: 0.95rem;
-    }
-
-    .input-container {
-      display: flex;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #f1f1f1;
-      transition: background 0.3s, border-color 0.3s;
-    }
-
-    .input-container input {
-      flex: 1;
+    .button {
+      background-color: #6a5acd;
+      color: white;
       border: none;
-      padding: 1rem;
-      font-size: 1rem;
-      color: #333;
-      background: transparent;
-    }
-
-    .input-container input:focus {
-      outline: none;
-      background: #fff;
-    }
-
-    .input-container button {
-      border: none;
-      padding: 1rem 1.5rem;
-      background: #4A47A3;
-      color: #fff;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      width: 90%;
+      max-width: 300px;
+      font-size: 16px;
       cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .input-container button:hover {
-      background: #6c63ff;
-    }
-
-    #pair {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 1.1rem;
-      color: #111;
-      transition: color 0.3s;
-    }
-
-    .copy-container {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      color: red;
-    }
-
-    .copy-icon {
-      width: 20px;
-      height: 20px;
-      fill: #4A47A3;
-      transition: 0.3s;
-    }
-
-    .copy-container:hover .copy-icon {
-      fill: #000;
-    }
-
-    #waiting-message {
-      margin-top: 15px;
-      font-weight: bold;
-      color: #444;
       display: block;
-      text-align: center;
+      text-decoration: none;
     }
-
-    .glowing-text {
-      font-size: 1rem;
-      font-weight: bold;
-      color: #4A47A3;
-      animation: glow 2s ease-in-out infinite alternate;
-      text-align: center;
-      letter-spacing: 1px;
-      transition: color 0.3s, text-shadow 0.3s;
-    }
-
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 5px #ccc;
-      }
-      to {
-        text-shadow: 0 0 10px #4A47A3, 0 0 20px #4A47A3;
-      }
-    }
-
-    .social-icons {
-      margin-top: 20px;
-      display: flex;
-      gap: 20px;
-    }
-
-    .social-icons a {
-      color: #4A47A3;
-      font-size: 1.5rem;
-      transition: color 0.3s;
-    }
-
-    .social-icons a:hover {
-      color: #000;
-    }
-
-    @media (max-width: 480px) {
-      .input-container {
-        flex-direction: column;
-      }
-
-      .input-container input,
-      .input-container button {
-        width: 100%;
-        border-radius: 0;
-      }
-
-      .input-container button {
-        border-top: 1px solid #ccc;
-      }
-    }
-
-    /* Dark mode toggle button */
-    #darkModeToggle {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-      color: #4A47A3;
-      transition: color 0.3s;
-      z-index: 9999;
-    }
-
-    #darkModeToggle:hover {
-      color: #6c63ff;
-    }
-
-    body.dark #darkModeToggle {
-      color: #9f79ff;
+    img {
+      border-radius: 50%;
+      width: 100px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <button id="darkModeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-    <i class="fas fa-moon"></i>
-  </button>
+  <img src="https://files.catbox.moe/0gzmp7.jpg" alt="profil" />
+  <h1>HUNTER-<span style="color:#ccc;">XMD</span></h1>
+  <p>BIENVENUE SUR LE SITE DE LA SESSION HUNTER-XMD</p>
 
-  <div class="container">
-    <div class="main">
-      <div class="box" id="box">
-        <div id="text">
-          <i class="fa fa-user" style="font-size: 1.5rem; color: #4A47A3; display:block; text-align:center;"></i>
-          <h2>HUNTER XMD PAIR</h2>
-          <h6>Enter your number with country code</h6>
-          <div class="input-container">
-            <input placeholder="509432xxx" type="number" id="number" />
-            <button id="submit">Enter</button>
-          </div>
-          <a id="waiting-message" style="display: none;">In process...</a>
-          <main id="pair"></main>
-        </div>
-      </div>
-    </div>
-
-    <div class="social-icons">
-      <a href="https://wa.me/" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
-      <a href="https://youtube.com/" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
-      <a href="https://github.com/" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-    </div>
-
-    <div class="glowing-text">© 2025 Hisoka</div>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
-  <script>
-    const darkModeToggle = document.getElementById("darkModeToggle");
-    const body = document.body;
-
-    // Load saved preference or default to false
-    let darkMode = localStorage.getItem("darkMode") === "true";
-
-    function updateDarkMode() {
-      if (darkMode) {
-        body.classList.add("dark");
-        darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        darkModeToggle.title = "Switch to light mode";
-      } else {
-        body.classList.remove("dark");
-        darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        darkModeToggle.title = "Switch to dark mode";
-      }
-      localStorage.setItem("darkMode", darkMode);
-    }
-
-    darkModeToggle.addEventListener("click", () => {
-      darkMode = !darkMode;
-      updateDarkMode();
-    });
-
-    updateDarkMode();
-
-    let a = document.getElementById("pair");
-    let b = document.getElementById("submit");
-    let c = document.getElementById("number");
-
-    async function Copy() {
-      let codeText = document.getElementById("code-value").innerText;
-      await navigator.clipboard.writeText(codeText);
-      const icon = document.getElementById("copy-icon");
-      icon.style.fill = "green";
-      setTimeout(() => {
-        icon.style.fill = "#4A47A3";
-      }, 700);
-    }
-
-    b.addEventListener("click", async (e) => {
-      e.preventDefault();
-      if (!c.value) {
-        a.innerHTML = '<span style="color:#c00;font-weight:bold">❗Enter your WhatsApp number with country code.</span><br><br>';
-      } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
-        a.innerHTML = '<span style="color:#c00;font-weight:bold">❌Invalid number format❌</span><br><br>';
-      } else {
-        const bc = c.value.replace(/[^0-9]/g, "");
-        let bb = "";
-        let bbc = "";
-        const cc = bc.split('');
-        cc.map(a => {
-          bbc += a;
-          if (bbc.length == 3) {
-            bb += " " + a;
-          } else if (bbc.length == 8) {
-            bb += " " + a;
-          } else {
-            bb += a;
-          }
-        });
-        c.type = "text";
-        c.value = "+" + bb;
-        c.style = "color:black;font-size:20px";
-        a.innerHTML = '<span style="color:black;font-weight:bold">Please wait 🔎</span><br><br>';
-        try {
-          let { data } = await axios(`/code?number=${bc}`);
-          let code = data.code || "Service Unavailable";
-          a.innerHTML = `
-            <div class="copy-container" onclick="Copy()">
-              CODE: <span id="code-value" style="color:black;">${code}</span>
-              <svg id="copy-icon" class="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 18H8V7h11v16z"/>
-              </svg>
-            </div>
-          <br><br>`;
-        } catch(err) {
-          a.innerHTML = '<span style="color:#c00;font-weight:bold">❌Service error. Try again later.</span><br><br>';
-        }
-      }
-    });
-  </script>
+  <a href="/qr.html" class="button">📷 QR CODE</a>
+  <a href="/pair.html" class="button">🔐 CODE DE PAIRE</a>
+  <a href="https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a" class="button" target="_blank" rel="noopener noreferrer">📡 CHANNEL DEV</a>
+  <a href="https://chat.whatsapp.com/FNrzuYDoevzLbrmCwxRLWw?mode=ac_t" class="button" target="_blank" rel="noopener noreferrer">👥 GROUPE SUPPORT</a>
+  <a href="https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a" class="button" target="_blank" rel="noopener noreferrer">📣 SUPPORT DE CHAÎNE</a>
+  <a href="https://forum-hisoka" class="button" target="_blank" rel="noopener noreferrer">💬 DISCUSSION DU FORUM HISOKA</a>
 </body>
-  </html>
+</html>
+                                        
