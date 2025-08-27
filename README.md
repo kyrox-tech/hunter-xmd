@@ -33,13 +33,14 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -50,14 +51,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Start Bot
-        env:
-          SESSION_ID: secrets.SESSION_ID 
+      - name: Run bot in background
         run: |
-          echo "SESSION_ID" > session.json
-          node index.js
-          
-
+          nohup node index.js > bot.log 2>&1 &
+          echo "Bot started and running in background"
+        env:
+          MEGA_EMAIL: secrets.MEGA_EMAIL 
+          MEGA_PASSWORD:{{ secrets.MEGA_PASSWORD }}
 
 
 Ce workflow lit la session depuis le secret, la place dans `session.json`, puis lance ton bot avec `node index.js`. Ajuste si ton fichier principal a un autre nom.
