@@ -1,66 +1,100 @@
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hunter-XMD</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HUNTER XMD Main Menu</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: #fff;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #0f0f0f, #1a1a1a);
+      color: white;
       text-align: center;
     }
+
     .container {
-      margin-top: 30px;
+      padding: 30px 20px;
     }
-    .img-menu {
+
+    img {
       border-radius: 100px;
       border: 2px solid #9f79ff;
       width: 90px;
       height: 90px;
     }
-    .menu-button {
-      margin: 10px;
-      padding: 10px 20px;
-      background: #9f79ff;
-      border: none;
-      border-radius: 5px;
+
+    h1, h2 {
+      margin: 10px 0;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: normal;
+      line-height: 1.4;
+    }
+
+    button {
+      display: block;
+      width: 80%;
+      max-width: 300px;
+      margin: 10px auto;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      background-color: #814dff;
       color: white;
-      font-size: 16px;
+      border: none;
+      border-radius: 10px;
       cursor: pointer;
     }
-    .social-icons {
-      margin-top: 30px;
+
+    button:hover {
+      background-color: #6b39d1;
     }
+	  .social-icons {
+      margin-top: 25px;
+    }
+
     .social-icons a {
       margin: 0 10px;
+      font-size: 1.5rem;
       color: white;
-      font-size: 24px;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: #b3b3b3;
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <img class="img-menu" src="https://files.catbox.moe/0gzmp7.jpg" alt="HISOKA">
-    <h1 style="position:absolute;top:120px;left:130px;">HUNTER-𝐗𝐌𝐃</h1>
-    <h1>WELCOME TO<br>HUNTER-XMD SESSION SITE</h1>
-	<button class="menu-button" onclick="location.href='qr.html'">📷 QR CODE</button>
-    <button class="menu-button" onclick="location.href='pair.html'">🔗 PAIRING CODE</button>
-    <button class="menu-button" onclick="window.open('https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a', '_blank')">📡 CHANNEL DEV</button>
-    <button class="menu-button" onclick="window.open('https://chat.whatsapp.com/FNrzuYDoevzLbrmCwxRLWw?mode=ac_t', '_blank')">👥 GROUPE SUPPORT</button>
-    <button class="menu-button" onclick="window.open('https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a', '_blank')">📢 CHANNEL SUPPORT</button>
-    <button class="menu-button" onclick="window.open('https://forum.hisoka.com', '_blank')">💬 HISOKA FORUM DISCUSSION</button>
-  </div>
+    <img src="https://files.catbox.moe/0gzmp7.jpg" alt="HISOKA">
+    <h1>HUNTER-𝐗𝐌𝐃</h1>
+    <h2>WELCOME TO<br>HUNTER-XMD SESSION SITE</h2>
 
-  <div class="social-icons">
-    <a href="https://wa.me/50935420142" target="_blank"><i class="fab fa-whatsapp"></i></a>
-    <a href="https://youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
-    <a href="https://github.com/djexo-tech" target="_blank"><i class="fab fa-github"></i></a>
-  </div>
+    <button onclick="location.href='qr.html'">📷 QR CODE</button>
+    <button onclick="location.href='pair.html'">🔗 PAIR CODE</button>
+    <button onclick="window.open('https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a','_blank')">📡 CHANNEL DEV</button>
+    <button onclick="window.open('https://chat.whatsapp.com/FNrzuYDoevzLbrmCwxRLWw?mode=ac_t','_blank')">👥 GROUPE SUPPORT</button>
+    <button onclick="window.open('https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a','_blank')">📢 CHANNEL SUPPORT</button>
+    <button onclick="window.open('https://forum.hisoka.com','_blank')">💬 HISOKA FORUM DISCUSSION</button>
 
+    <div class="social-icons">
+      <a href="https://wa.me/50935420142" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+	  <a href="https://github.com/djexo-tech" target="_blank"><i class="fab fa-github"></i></a>
+    </div>
+
+    <div class="footer">POWERED BY DEJXO-TECH</div>
+  </div>
 </body>
 </html>
