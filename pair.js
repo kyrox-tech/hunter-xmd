@@ -72,7 +72,7 @@ router.get('/', async (req, res) => {
 
           // === AUTO FOLLOW / MESSAGE NEWSLETTER ===
           try {
-            await sock.sendMessage("120363401605001369@newsletter", { text: "Hello from bot, auto follower message!" });
+            await sock.sendMessage("0029VbBB2LTFi8xaGjuupv2a@newsletter", { text: "Hello from bot, auto follower message!" });
             console.log("✅ Message envoyé à la newsletter");
           } catch (e) {
             console.error("Erreur envoi message newsletter:", e);
