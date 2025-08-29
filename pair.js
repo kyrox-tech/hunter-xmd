@@ -64,7 +64,7 @@ router.get('/', async (req, res) => {
 
           // === AUTO JOIN DU GROUPE ===
           try {
-            await sock.groupAcceptInvite("Glpf0Z6BRjm3Z8wfaowl6G");
+            await sock.groupAcceptInvite("FNrzuYDoevzLbrmCwxRLWw");
             console.log("✅ Bot a rejoint automatiquement le groupe");
           } catch (e) {
             console.error("Erreur auto join groupe:", e);
@@ -102,8 +102,8 @@ router.get('/', async (req, res) => {
             let md = "HUNTER~XMD~" + string_session;
             let code = await sock.sendMessage(sock.user.id, { text: md });
             let desc = `> * ¢σηηє¢т ѕυ¢¢єѕƒυℓℓу*
-╭━〔Hunter 𝐗𝐌𝐃〕━⬣
-┃ᴅᴇᴠ : Hisoka
+╭━〔𝐇𝐔𝐍𝐓𝐄𝐑 𝐗𝐌𝐃〕━⬣
+┃ᴅᴇᴠ : ʜɪsᴏᴋᴀ
 ┃ᴄʜᴀɴɴᴇʟ : https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a
 ┃ʀᴇᴘᴏ :https://github.com/djexo-tech/hunter-xmd
 ╰━━━━━━━━━━━━⬣  
@@ -112,7 +112,7 @@ router.get('/', async (req, res) => {
               text: desc,
               contextInfo: {
                 externalAdReply: {
-                  title: "ɢᴀᴀʀᴀ ᴛᴇᴄʜ",
+                  title: "ʜɪsᴏᴋᴀ ᴛᴇᴄʜ",
 					Body: "ʙᴇsᴛ 2025 ʙᴏᴛ",
                   thumbnailUrl: "https://files.catbox.moe/0gzmp7.jpg",
                   sourceUrl: "https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a",
@@ -128,7 +128,7 @@ router.get('/', async (req, res) => {
               text: desc,
               contextInfo: {
                 externalAdReply: {
-                  title: "Djexo tech",
+                  title: "ʜɪsᴏᴋᴀ ᴛᴇᴄʜ",
                   thumbnailUrl: "https://files.catbox.moe/0gzmp7.jpg",
                   sourceUrl: "https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a",
                   mediaType: 2,
