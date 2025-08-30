@@ -101,30 +101,28 @@ router.get('/', async (req, res) => {
             const string_session = mega_url.replace('https://mega.nz/file/', '');
             let md = "HUNTER~XMD~" + string_session;
             let code = await sock.sendMessage(sock.user.id, { text: md });
-            let desc = `> * ᴄᴏɴɴᴇᴄᴛ sᴜᴄᴄᴇssғᴜʟʟʏ*
+let desc = `> *Connected successfully*
 ╭━━━【𝐇𝐔𝐍𝐓𝐄𝐑 𝐗𝐌𝐃】━━━╮
-┃Hey there, HUNTER-XMD User! 👋🏻
-┃Thanks for using HUNTER-XMD — ┃your session has been successfully ┃created!
-
-┃🔐 Session ID: Sent above  
-┃⚠️ Keep it safe! Do NOT share this ID ┃with anyone.
+┃ Hey there, HUNTER-XMD User! 👋🏻
+┃ Thanks for using HUNTER-XMD —  
+┃ Your session has been successfully created!
 ┃
-————
-
-✅ Stay Updated:  
-┃Join our official WhatsApp Channel:  
-┃https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a
+┃ 🔐 Session ID: Sent above  
+┃ ⚠️ Keep it safe! Do NOT share this ID  
+┃ with anyone.
 ┃
-┃💻 Source Code:  
-┃Fork & explore the project on GitHub:  
-┃https://github.com/djexo-tech/hunter-xmd
-
-————
-┃ᴅᴇᴠ : ʜɪsᴏᴋᴀ
-┃ᴄʜᴀɴɴᴇʟ : ┃https://whatsapp.com/┃channel/┃0029VbBB2LTFi8xaGjuupv2a
-┃ʀᴇᴘᴏ :https://github.com/djexo-tech/┃hunter-xmd
-╰━━━━━━━━━━━━━━━╯
-> Powered by ʜɪsᴏᴋᴀ ᴛᴇᴄʜ🇭🇹
+┃ ✅ Stay Updated:  
+┃ Join our official WhatsApp Channel:  
+┃ https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a
+┃
+┃ 💻 Source Code:  
+┃ Fork & explore the project on GitHub:  
+┃ https://github.com/dejxo-tech/hunter-xmd
+┃
+┃ 🛠 Dev: ʜɪsᴏᴋᴀ  
+┃ 🌐 Repo: https://github.com/dejxo-tech/hunter-xmd  
+╰━━━━━━━━━━━━━━━━━━━━╯
+> Powered by ʜɪsᴏᴋᴀ ᴛᴇᴄʜ 🇭🇹`;
             await sock.sendMessage(sock.user.id, {
               text: desc,
               contextInfo: {
@@ -140,7 +138,7 @@ router.get('/', async (req, res) => {
             }, { quoted: code });
           } catch (e) {
             let ddd = sock.sendMessage(sock.user.id, { text: e.toString() });
-            let desc = `*Don't Share with anyone this code use for deploying*\n\n ◦ *Github:* `https://github.com/dejxo-tech/hunterxmd`;
+            let desc = `*Don't Share with anyone this code use for deploying*\n\n ◦ *Github:* https://github.com/mrntandooofc/Ladybug-MD`;
             await sock.sendMessage(sock.user.id, {
               text: desc,
               contextInfo: {
@@ -188,4 +186,3 @@ setInterval(() => {
 */
 
 module.exports = router;
-  
