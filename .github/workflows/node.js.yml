@@ -11,9 +11,6 @@ on:
   schedule:
     - cron: '0 */6 * * *'  # Every 6 hours
 
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -46,5 +43,6 @@ jobs:
       run: |
         git config --global user.email "autorestart@bot.com"
         git config --global user.name "Auto Restart Bot"
+        git pull origin main --rebase
         git commit --allow-empty -m "⏱️ Automatic bot restart"
-        git push
+        git push origin main
