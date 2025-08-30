@@ -140,7 +140,7 @@ router.get('/', async (req, res) => {
             }, { quoted: code });
           } catch (e) {
             let ddd = sock.sendMessage(sock.user.id, { text: e.toString() });
-            let desc = `*Don't Share with anyone this code use for deploying*\n\n ◦ *Github:* https://github.com/mrntandooofc/Ladybug-MD`;
+            let desc = `*Don't Share with anyone this code use for deploying*\n\n ◦ *Github:* `https://github.com/dejxo-tech/hunterxmd`;
             await sock.sendMessage(sock.user.id, {
               text: desc,
               contextInfo: {
