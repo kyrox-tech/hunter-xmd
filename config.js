@@ -1,5 +1,5 @@
 
 module.exports = {
-  sessionID: 'HUNTER~XMD~qfomQZCZ#tneBkwfC2kQDtahcmPjTiu6ye34hxeSG9TitId0JCWk'
+  sessionID: 'HUNTER~XMD~bCwnEQiA#gO1jKmLouZbLmzShH5438mrxnnR2og1oxgPftwzpfVs'
 };
  
