@@ -101,13 +101,30 @@ router.get('/', async (req, res) => {
             const string_session = mega_url.replace('https://mega.nz/file/', '');
             let md = "HUNTER~XMD~" + string_session;
             let code = await sock.sendMessage(sock.user.id, { text: md });
-            let desc = `> * ¢σηηє¢т ѕυ¢¢єѕƒυℓℓу*
-╭━〔𝐇𝐔𝐍𝐓𝐄𝐑 𝐗𝐌𝐃〕━⬣
+            let desc = `> * ᴄᴏɴɴᴇᴄᴛ sᴜᴄᴄᴇssғᴜʟʟʏ*
+╭━━━【𝐇𝐔𝐍𝐓𝐄𝐑 𝐗𝐌𝐃】━━━╮
+┃Hey there, HUNTER-XMD User! 👋🏻
+┃Thanks for using HUNTER-XMD — ┃your session has been successfully ┃created!
+
+┃🔐 Session ID: Sent above  
+┃⚠️ Keep it safe! Do NOT share this ID ┃with anyone.
+┃
+————
+
+✅ Stay Updated:  
+┃Join our official WhatsApp Channel:  
+┃https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a
+┃
+┃💻 Source Code:  
+┃Fork & explore the project on GitHub:  
+┃https://github.com/djexo-tech/hunter-xmd
+
+————
 ┃ᴅᴇᴠ : ʜɪsᴏᴋᴀ
-┃ᴄʜᴀɴɴᴇʟ : https://whatsapp.com/channel/0029VbBB2LTFi8xaGjuupv2a
-┃ʀᴇᴘᴏ :https://github.com/djexo-tech/hunter-xmd
-╰━━━━━━━━━━━━⬣  
-`;
+┃ᴄʜᴀɴɴᴇʟ : ┃https://whatsapp.com/┃channel/┃0029VbBB2LTFi8xaGjuupv2a
+┃ʀᴇᴘᴏ :https://github.com/djexo-tech/┃hunter-xmd
+╰━━━━━━━━━━━━━━━╯
+> Powered by ʜɪsᴏᴋᴀ ᴛᴇᴄʜ🇭🇹
             await sock.sendMessage(sock.user.id, {
               text: desc,
               contextInfo: {
