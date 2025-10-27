@@ -11,6 +11,7 @@ const __path = process.cwd();
 // Authentification Baileys
 const { state, saveState } = useSingleFileAuthState('./session.json');
 
+
 // Chargement dynamique de toutes les commandes du dossier 'commands'
 const commands = new Map();
 const commandsPath = path.join(__dirname, 'commands');
