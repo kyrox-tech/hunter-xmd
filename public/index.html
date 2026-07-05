@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hunter XMD - Authentification WhatsApp</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 30px 20px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section.hidden {
+      display: none;
+    }
+
+    .section h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .qr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .qr-box {
+      background: #f5f5f5;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      width: 100%;
+    }
+
+    .qr-box img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+
+    .status-badge.pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status-badge.success {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .status-badge.error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .button {
+      width: 100%;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 15px;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .button.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .button.primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .button.secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    .button.secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #1565c0;
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .session-id-display {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      word-break: break-all;
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .copy-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background: #764ba2;
+    }
+
+    .success-container {
+      text-align: center;
+    }
+
+    .success-icon {
+      font-size: 60px;
+      margin-bottom: 15px;
+    }
+
+    .success-container h2 {
+      color: #155724;
+      margin-bottom: 10px;
+    }
+
+    .success-container p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .error-box {
+      background: #f8d7da;
+      border-left: 4px solid #dc3545;
+      padding: 15px;
+      border-radius: 4px;
+      color: #721c24;
+      margin-top: 15px;
+    }
+
+    .footer {
+      background: #f5f5f5;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+      border-top: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🤖 Hunter XMD</h1>
+      <p>Bot WhatsApp Multi-Device</p>
+    </div>
+
+    <div class="content">
+      <!-- Section 1: Génération QR -->
+      <div class="section" id="qrSection">
+        <div class="status-badge pending">⏳ En attente</div>
+        <h2>Scannez ce code QR</h2>
+        <div class="info-box">
+          <strong>Comment faire:</strong>
+          Ouvrez WhatsApp sur votre téléphone, allez dans Paramètres → Appareils liés et scannez ce code.
+        </div>
+        <div class="qr-container">
+          <div class="qr-box" id="qrBox">
+            <div class="loading"></div>
+          </div>
+          <button class="button secondary" onclick="generateNewQR()">🔄 Nouveau QR Code</button>
+        </div>
+      </div>
+
+      <!-- Section 2: Vérification -->
+      <div class="section hidden" id="verifySection">
+        <div class="status-badge pending">⏳ Authentification en cours</div>
+        <h2>Vérification en cours...</h2>
+        <div style="text-align: center; padding: 40px 20px;">
+          <div class="loading" style="margin: 0 auto; margin-bottom: 20px;"></div>
+          <p>Attendez que votre téléphone confirme l'authentification...</p>
+        </div>
+      </div>
+
+      <!-- Section 3: Succès -->
+      <div class="section hidden" id="successSection">
+        <div class="success-container">
+          <div class="success-icon">✅</div>
+          <div class="status-badge success">Authentifiée</div>
+          <h2>Authentification réussie!</h2>
+          <p>Votre bot est maintenant connecté à WhatsApp.</p>
+          
+          <div style="text-align: left; margin-top: 20px;">
+            <strong>Votre ID de session:</strong>
+            <div class="session-id-display">
+              <span id="sessionIdText"></span>
+              <button class="copy-btn" onclick="copySessionId()">📋 Copier</button>
+            </div>
+          </div>
+
+          <div class="info-box" style="margin-top: 20px; background: #d4edda; color: #155724; border-left-color: #28a745;">
+            <strong>⚠️ Important:</strong>
+            Sauvegardez cet ID de session! Vous en aurez besoin pour redémarrer le bot.
+          </div>
+
+          <button class="button primary" onclick="finishSetup()">✓ Terminer</button>
+        </div>
+      </div>
+
+      <!-- Section 4: Erreur -->
+      <div class="section hidden" id="errorSection">
+        <div class="status-badge error">❌ Erreur</div>
+        <h2>Une erreur s'est produite</h2>
+        <div class="error-box" id="errorMessage"></div>
+        <button class="button primary" onclick="resetSetup()">🔄 Réessayer</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>© 2024 Hunter XMD • Développé avec ❤️</p>
+    </div>
+  </div>
+
+  <script>
+    let currentSessionId = null;
+    let qrPollInterval = null;
+
+    /**
+     * Génère un nouveau QR Code
+     */
+    async function generateNewQR() {
+      try {
+        showSection('qrSection');
+        const response = await fetch('/api/auth/generate-qr', { method: 'POST' });
+        const data = await response.json();
+
+        if (!data.success) {
+          showError(data.error || 'Erreur lors de la génération du QR code');
+          return;
+        }
+
+        currentSessionId = data.sessionId;
+        displayQR(data.qrCode);
+        pollAuthStatus();
+      } catch (error) {
+        showError(error.message);
+      }
+    }
+
+    /**
+     * Affiche le QR Code
+     */
+    function displayQR(qrCode) {
+      const qrBox = document.getElementById('qrBox');
+      qrBox.innerHTML = `<img src="${qrCode}" alt="QR Code" style="max-width: 100%;">`;
+    }
+
+    /**
+     * Sonde le statut de l'authentification
+     */
+    function pollAuthStatus() {
+      showSection('verifySection');
+      
+      qrPollInterval = setInterval(async () => {
+        try {
+          const response = await fetch(`/api/auth/status/${currentSessionId}`);
+          const data = await response.json();
+
+          if (data.authenticated) {
+            clearInterval(qrPollInterval);
+            showSuccessSection();
+          }
+        } catch (error) {
+          console.error('Erreur poll:', error);
+        }
+      }, 1000);
+    }
+
+    /**
+     * Affiche la section de succès
+     */
+    function showSuccessSection() {
+      document.getElementById('sessionIdText').textContent = currentSessionId;
+      showSection('successSection');
+    }
+
+    /**
+     * Copie l'ID de session
+     */
+    function copySessionId() {
+      const text = document.getElementById('sessionIdText').textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('✅ Copié dans le presse-papiers!');
+      });
+    }
+
+    /**
+     * Affiche une section
+     */
+    function showSection(sectionId) {
+      document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+      document.getElementById(sectionId).classList.remove('hidden');
+    }
+
+    /**
+     * Affiche une erreur
+     */
+    function showError(message) {
+      document.getElementById('errorMessage').textContent = message;
+      showSection('errorSection');
+    }
+
+    /**
+     * Réinitialise le setup
+     */
+    function resetSetup() {
+      if (qrPollInterval) clearInterval(qrPollInterval);
+      currentSessionId = null;
+      generateNewQR();
+    }
+
+    /**
+     * Termine le setup
+     */
+    function finishSetup() {
+      // Vous pouvez rediriger vers un dashboard ici
+      alert(`Votre SESSION_ID est: ${currentSessionId}\n\nAjoutez-le à votre fichier .env`);
+    }
+
+    // Générer le QR code au chargement
+    window.addEventListener('load', generateNewQR);
+  </script>
+</body>
+</html>

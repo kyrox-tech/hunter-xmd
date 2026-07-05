@@ -1,89 +1,101 @@
 const fs = require('fs');
-if (fs.existsSync('config.env')) require('dotenv').config({ path: './config.env' });
+const path = require('path');
 
-function convertToBool(text, fault = 'true') {
-    return text === fault ? true : false;
+// Charger les variables d'environnement
+if (fs.existsSync('.env')) {
+  require('dotenv').config({ path: './.env' });
 }
+
+/**
+ * Convertir une chaîne en booléen
+ * @param {string} text - Valeur à convertir
+ * @param {string} fault - Valeur par défaut
+ * @returns {boolean}
+ */
+function convertToBool(text, fault = 'true') {
+  return text === fault ? true : false;
+}
+
 module.exports = {
-SESSION_ID: process.env.SESSION_ID || "HUNTER~XMD~jT5nmSjD#J7iiUd1zrgDuY6JXWTRuUX2MhI-_8EvnZlfcxAflFOU",
-// add your Session Id 
-AUTO_STATUS_SEEN: process.env.AUTO_STATUS_SEEN || "false",
-// make true or false status auto seen
-AUTO_STATUS_REPLY: process.env.AUTO_STATUS_REPLY || "false",
-// make true if you want auto reply on status 
-AUTO_STATUS_REACT: process.env.AUTO_STATUS_REACT || "true",
-//anticall on/off
-   ANTI_CALL: process.env.ANTI_CALL || "true",
-// make true if you want auto reply on status 
-AUTO_STATUS_MSG: process.env.AUTO_STATUS_MSG || "*SEEN YOUR STATUS BY ʜɪsᴏᴋᴀ*",
-// set the auto reply massage on status reply  
-ANTI_DELETE: process.env.ANTI_DELETE || "true",
-// set true false for anti delete     
-ANTI_DEL_PATH: process.env.ANTI_DEL_PATH || "inbox", 
-// change it to 'same' if you want to resend deleted message in same chat     
-WELCOME: process.env.WELCOME || "true",
-// true if want welcome and goodbye msg in groups    
-ADMIN_EVENTS: process.env.ADMIN_EVENTS || "false",
-// make true to know who dismiss or promoted a member in group
-ANTI_LINK: process.env.ANTI_LINK || "false",
-// make anti link true,false for groups 
-MENTION_REPLY: process.env.MENTION_REPLY || "false",
-// make true if want auto voice reply if someone menetion you 
-MENU_IMAGE_URL: process.env.MENU_IMAGE_URL || "https://files.catbox.moe/0gzmp7.jpg",
-// add custom menu and mention reply image url
-PREFIX: process.env.PREFIX || ".",
-
-    AUTO_BIO: process.env.AUTO_BIO || "false",// Replace with your authorized numbers
-
-    // Timezone for the auto-bio feature
-    TIME_ZONE: process.env.TIME_ZONE || "Asia/Kolkata",  // Change to your preferred timezone
-// add your prifix for bot   
-BOT_NAME: process.env.BOT_NAME || " 𝐇𝐔𝐍𝐓𝐄𝐑 𝐗𝐌𝐃",
-// add bot namw here for menu
-STICKER_NAME: process.env.STICKER_NAME || " ʜɪsᴏᴋᴀ ᴛᴇᴄʜ",
-// type sticker pack name 
-CUSTOM_REACT: process.env.CUSTOM_REACT || "false",
-// make this true for custum emoji react    
-CUSTOM_REACT_EMOJIS: process.env.CUSTOM_REACT_EMOJIS || "💝,💖,💗,❤️‍🩹,❤️,🧡,💛,💚,💙,💜,🤎,🖤,🤍",
-// chose custom react emojis by yourself 
-DELETE_LINKS: process.env.DELETE_LINKS || "true",
-// automatic delete links witho remove member 
-OWNER_NUMBER: process.env.OWNER_NUMBER || "50935420142",
-// add your bot owner number
-OWNER_NAME: process.env.OWNER_NAME || "ʜɪsᴏᴋᴀ",
-// add bot owner name
-DESCRIPTION: process.env.DESCRIPTION || "*© ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʜɪsᴏᴋᴀ ᴛᴇᴄʜ*",
-// add bot owner name    
-ALIVE_IMG: process.env.ALIVE_IMG || "https://files.catbox.moe/jtc93v.jpg",
-// add img for alive msg
-ALIVE_MSG: process.env.ALIVE_MSG || "_ʜɪ ᴅᴇᴀʀ👋  ᴡʜᴀᴛsᴀᴘᴘ ʙᴏᴛ ᴄʀᴇᴀᴛᴇᴅ ғᴏʀ ᴀsɪsᴛ ʏᴏᴜ._",
-// add alive msg here 
-READ_MESSAGE: process.env.READ_MESSAGE || "false",
-// Turn true or false for automatic read msgs
-AUTO_REACT: process.env.AUTO_REACT || "false",
-// make this true or false for auto react on all msgs
-ANTI_BAD: process.env.ANTI_BAD || "false",
-// false or true for anti bad words  
-MODE: process.env.MODE || "public",
-// make bot public-private-inbox-group 
-ANTI_LINK_KICK: process.env.ANTI_LINK_KICK || "false",
-// make anti link true,false for groups 
-AUTO_STICKER: process.env.AUTO_STICKER || "false",
-// make true for automatic stickers 
-AUTO_REPLY: process.env.AUTO_REPLY || "false",
-// make true or false automatic text reply 
-ALWAYS_ONLINE: process.env.ALWAYS_ONLINE || "false",
-// maks true for always online 
-PUBLIC_MODE: process.env.PUBLIC_MODE || "true",
-// make false if want private mod
-AUTO_TYPING: process.env.AUTO_TYPING || "false",
-// true for automatic show typing   
-READ_CMD: process.env.READ_CMD || "false",
-// true if want mark commands as read 
-DEV: process.env.DEV || "50935420142",
-//replace with your whatsapp number        
-ANTI_VV: process.env.ANTI_VV || "true",
-// true for anti once view 
-AUTO_RECORDING: process.env.AUTO_RECORDING || "false"
-// make it true for auto recoding 
+  // SESSION_ID - Obtenir depuis la page d'authentification
+  SESSION_ID: process.env.SESSION_ID || "",
+  
+  // Port du serveur
+  PORT: process.env.PORT || 3000,
+  
+  // Mode du bot (public|private|inbox|group)
+  MODE: process.env.MODE || "public",
+  
+  // Préfixe des commandes
+  PREFIX: process.env.PREFIX || ".",
+  
+  // Infos du bot
+  BOT_NAME: process.env.BOT_NAME || "Hunter XMD",
+  OWNER_NAME: process.env.OWNER_NAME || "Kyrox Tech",
+  OWNER_NUMBER: process.env.OWNER_NUMBER || "",
+  
+  // Features - Statut auto
+  AUTO_STATUS_SEEN: convertToBool(process.env.AUTO_STATUS_SEEN || "false"),
+  AUTO_STATUS_REPLY: convertToBool(process.env.AUTO_STATUS_REPLY || "false"),
+  AUTO_STATUS_REACT: convertToBool(process.env.AUTO_STATUS_REACT || "true"),
+  AUTO_STATUS_MSG: process.env.AUTO_STATUS_MSG || "*Vu votre statut* 🤍",
+  
+  // Features - Anti-call
+  ANTI_CALL: convertToBool(process.env.ANTI_CALL || "true"),
+  
+  // Features - Anti-delete
+  ANTI_DELETE: convertToBool(process.env.ANTI_DELETE || "true"),
+  ANTI_DEL_PATH: process.env.ANTI_DEL_PATH || "inbox",
+  
+  // Features - Groupe
+  WELCOME: convertToBool(process.env.WELCOME || "true"),
+  ADMIN_EVENTS: convertToBool(process.env.ADMIN_EVENTS || "false"),
+  ANTI_LINK: convertToBool(process.env.ANTI_LINK || "false"),
+  
+  // Features - Messages
+  AUTO_REPLY: convertToBool(process.env.AUTO_REPLY || "false"),
+  AUTO_REPLY_MSG: process.env.AUTO_REPLY_MSG || "Je suis absent en ce moment! 🚀",
+  MENTION_REPLY: convertToBool(process.env.MENTION_REPLY || "false"),
+  
+  // Features - Réactions
+  AUTO_REACT: convertToBool(process.env.AUTO_REACT || "false"),
+  CUSTOM_REACT: convertToBool(process.env.CUSTOM_REACT || "false"),
+  CUSTOM_REACT_EMOJIS: process.env.CUSTOM_REACT_EMOJIS || "💝,💖,💗,❤️,🧡,💛,💚,💙",
+  
+  // Features - Lecture
+  READ_MESSAGE: convertToBool(process.env.READ_MESSAGE || "false"),
+  READ_CMD: convertToBool(process.env.READ_CMD || "false"),
+  AUTO_TYPING: convertToBool(process.env.AUTO_TYPING || "false"),
+  AUTO_RECORDING: convertToBool(process.env.AUTO_RECORDING || "false"),
+  ALWAYS_ONLINE: convertToBool(process.env.ALWAYS_ONLINE || "false"),
+  
+  // Sécurité
+  ANTI_BAD: convertToBool(process.env.ANTI_BAD || "false"),
+  ANTI_VV: convertToBool(process.env.ANTI_VV || "true"),
+  ANTI_LINK_KICK: convertToBool(process.env.ANTI_LINK_KICK || "false"),
+  
+  // Images et URLs
+  MENU_IMAGE_URL: process.env.MENU_IMAGE_URL || "https://via.placeholder.com/400",
+  ALIVE_IMG: process.env.ALIVE_IMG || "https://via.placeholder.com/400",
+  ALIVE_MSG: process.env.ALIVE_MSG || "Je suis en ligne et prêt à servir! 🎯",
+  
+  // Stickers
+  STICKER_NAME: process.env.STICKER_NAME || "Hunter XMD Stickers",
+  AUTO_STICKER: convertToBool(process.env.AUTO_STICKER || "false"),
+  
+  // Bio auto
+  AUTO_BIO: convertToBool(process.env.AUTO_BIO || "false"),
+  TIME_ZONE: process.env.TIME_ZONE || "Europe/Paris",
+  
+  // DEV
+  DEV: process.env.DEV || process.env.OWNER_NUMBER || "",
+  
+  // Dossiers
+  SESSION_PATH: path.join(__dirname, 'sessions'),
+  TEMP_PATH: path.join(__dirname, 'temp'),
+  LOGS_PATH: path.join(__dirname, 'logs'),
+  
+  // Sécurité serveur
+  API_KEY: process.env.API_KEY || 'hunter-xmd-secret-key-change-me',
+  ENVIRONMENT: process.env.NODE_ENV || 'production',
 };
