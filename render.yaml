@@ -1,10 +1,26 @@
 services:
   - type: web
-    name: kango-pair-site
-    env: docker
+    name: hunter-xmd
+    runtime: node
+    region: oregon
     plan: free
-    branch: main
-    repo: https://github.com/OfficialKango/kango-pair-site
-    dockerfilePath: ./Dockerfile
-    autoDeploy: true
-    
+    buildCommand: npm install
+    startCommand: node index.js
+    healthCheckPath: /health
+    healthCheckInterval: 60
+    maxInstanceCount: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: BOT_NAME
+        value: Hunter XMD
+      - key: MODE
+        value: public
+      - key: PREFIX
+        value: .
+      - key: ADMIN_KEY
+        fromBuild: true
+      - key: API_KEY
+        fromBuild: true

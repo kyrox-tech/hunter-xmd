@@ -1,107 +1,284 @@
-# HUNTER XMD
+# 🤖 Hunter XMD - Bot WhatsApp Multi-Device
 
-HUNTER XMD-Session-Generator
+> Un bot WhatsApp complet, sécurisé et facile à déployer
 
-![Image Hisoka](https://files.catbox.moe/jtc93v.jpg)
+## ✨ Fonctionnalités
 
----
+✅ **Authentification sécurisée** avec QR code  
+✅ **Dashboard Admin** pour gérer les sessions  
+✅ **Système de commandes** modulaire  
+✅ **Rate limiting** pour protéger l'API  
+✅ **Logs complètement** pour le debugging  
+✅ **Tests unitaires** de sécurité  
+✅ **Configuration centralisée** facile  
 
-## 💡 Fork This Project
+## 🚀 Démarrage rapide
 
-[![Fork Repo](https://img.shields.io/badge/FORK-REPO-black?style=for-the-badge&logo=github)](https://github.com/kyrox-tech/hunter-xmd/fork)
+### Prérequis
+- Node.js >= 18.0.0
+- npm >= 8.0.0
 
-Generate session IDs for WhatsApp bots using [`@whiskeysockets/baileys`](https://github.com/whiskeysockets/baileys), with secure **MEGA** cloud storage and a fast web QR login.
+### Installation
 
-> ⚠️ This is the **same code** used on my live site:  
+```bash
+# Cloner le repo
+git clone https://github.com/kyrox-tech/hunter-xmd.git
+cd hunter-xmd
 
+# Installer les dépendances
+npm install
 
-[![HUNTER XMD SESSION](https://img.shields.io/badge/HUNTER_XMD_SESSION-5865F2?style=for-the-badge)](https://hunter-xmd-5hki.onrender.com/)
+# Copier la configuration
+cp .env.example .env
 
- 
-> 💬 Don't ask for more — just **fork**, **star**, **edit** ,and **deploy**!
+# Générer les clés de sécurité
+node -e "console.log('API_KEY=' + require('crypto').randomBytes(32).toString('hex'))" >> .env
+node -e "console.log('ADMIN_KEY=' + require('crypto').randomBytes(16).toString('hex'))" >> .env
 
----
-# Deploy on github⤵️
+# Démarrer
+npm start
+```
 
+### Accès
 
-Crée un fichier *`.github/workflows/deploy.yml`* et colle ceci :
+- 🌐 **Page d'authentification**: http://localhost:3000
+- 👨‍💼 **Dashboard Admin**: http://localhost:3000/admin (besoin de la clé admin)
+- 💚 **Health check**: http://localhost:3000/health
+- 📚 **Commandes API**: http://localhost:3000/api/commands
 
+## 📚 API Endpoints
 
-name: Deploy WhatsApp Bot
+### Authentification
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+```bash
+# Générer QR code
+POST /api/auth/generate-qr
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# Vérifier le statut
+GET /api/auth/status/:sessionId
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+# Confirmer l'authentification
+POST /api/auth/confirm
+Body: { sessionId }
+```
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+### Sessions
 
-      - name: Install dependencies
-        run: npm install
+```bash
+# Lister les sessions (requiert API Key)
+GET /api/sessions
+Headers: { X-API-Key: YOUR_API_KEY }
 
-      - name: Run bot in background
-        run: |
-          nohup node index.js > bot.log 2>&1 &
-          echo "Bot started and running in background"
-        env:
-          MEGA_EMAIL: secrets.MEGA_EMAIL 
-          MEGA_PASSWORD:{{ secrets.MEGA_PASSWORD }}
+# Détails d'une session
+GET /api/sessions/:sessionId
+Headers: { X-API-Key: YOUR_API_KEY }
 
+# Supprimer une session
+DELETE /api/sessions/:sessionId
+Headers: { X-API-Key: YOUR_API_KEY }
+```
 
-Ce workflow lit la session depuis le secret, la place dans `session.json`, puis lance ton bot avec `node index.js`. Ajuste si ton fichier principal a un autre nom.
+### Admin
 
-## 🧩 Features
+```bash
+# Dashboard
+GET /api/admin/dashboard
+Headers: { X-Admin-Key: YOUR_ADMIN_KEY }
 
-- 🔐 Generates sessions for **any Baileys bot**
-- ☁️ Stores sessions securely with **MEGA**
-- 📱 Web-based **QR Pairing & Pair Pairing**
-- 🚀 One-click deploy to:
-  - Heroku
-  - Render
-  - Koyeb
-  - Self-hosting platforms
+# Logs
+GET /api/admin/logs
+GET /api/admin/logs/:filename
+Headers: { X-Admin-Key: YOUR_ADMIN_KEY }
 
----
+# Stats système
+GET /api/admin/stats
+Headers: { X-Admin-Key: YOUR_ADMIN_KEY }
+```
 
-## 📦 Deploy Now
+## 🔐 Sécurité
 
-| Platform | Deploy |
-|---------|--------|
-| 🟣 Heroku | [![Deploy to Heroku](https://img.shields.io/badge/DEPLOY-HEROKU-purple?style=for-the-badge&logo=heroku)](https://dashboard.heroku.com/new?template=https://github.com/kyrox-tech/hunter-xmd) |
-| 🔵 Render | [![Deploy to Render](https://img.shields.io/badge/DEPLOY-RENDER-blue?style=for-the-badge&logo=render)](https://dashboard.render.com/) |
-| ⚫ Koyeb | [![Deploy to Koyeb](https://img.shields.io/badge/DEPLOY-KOYEB-black?style=for-the-badge&logo=koyeb)](https://app.koyeb.com/) |
+### Mesures implémentées
 
----
+- ✅ **Helmet.js** - Headers HTTP sécurisés
+- ✅ **CORS** - Contrôle des origines
+- ✅ **Rate Limiting** - Protection contre les abus
+- ✅ **Input Sanitization** - Protection XSS
+- ✅ **API Key Validation** - Authentification
+- ✅ **Password Hashing** - Bcryptjs
+- ✅ **UUID Generation** - Sessions sécurisées
 
-## 🧪 Example Output
+### Clés API
 
-[![👉 Try it here:](https://img.shields.io/badge/click-here-black?style=for-the-badge&logo=git)](https://hunter-xmd-5hki.onrender.com/)
+Générez des clés fortes:
 
+```bash
+# Générer une clé API (32 caractères hex)
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
----
+# Générer une clé admin (16 caractères hex)
+node -e "console.log(require('crypto').randomBytes(16).toString('hex'))"
+```
 
-## 👑 Owner
+## 📝 Configuration
 
-<p align="center">
-  <a href="https://github.com/djexo-tech">
-    <img src="https://github.com/djexo-tech.png" width="200" height="200" alt="Hisoka"/>
-  </a>
-</p>
+Tous les paramètres sont dans `.env`:
 
-📬 [`Contact on WhatsApp`](https://wa.me/50935420142)
+```env
+# Serveur
+PORT=3000
+NODE_ENV=production
 
----
+# Bot
+BOT_NAME=Hunter XMD
+OWNER_NAME=Kyrox Tech
+PREFIX=.
 
+# Sécurité
+API_KEY=votre-clé-api
+ADMIN_KEY=votre-clé-admin
 
+# Features
+ANTI_CALL=true
+AUTO_REPLY=false
+AUTO_STATUS_SEEN=false
+```
+
+## 🤖 Commandes
+
+### Système
+
+- `.help` - Affiche l'aide
+- `.ping` - Teste la latence
+- `.alive` - Statut du bot
+- `.info` - Infos du bot
+
+### Ajouter une commande
+
+Créez un fichier dans `commands/modules/`:
+
+```javascript
+// commands/modules/moncommande.js
+module.exports = {
+  name: 'ma-commande',
+  aliases: ['cmd'],
+  description: 'Ma description',
+  usage: '.ma-commande [args]',
+  category: 'info',
+  
+  async execute(args, context) {
+    return {
+      success: true,
+      message: 'Réponse du bot'
+    };
+  }
+};
+```
+
+## 🚀 Déploiement
+
+### Sur Render.com
+
+1. Poussez votre code sur GitHub
+2. Allez sur [render.com](https://render.com)
+3. Créez un nouveau **Web Service**
+4. Connectez votre repo GitHub
+5. Variables d'environnement:
+   - `NODE_ENV=production`
+   - `PORT=10000`
+   - `API_KEY=votre-clé`
+   - `ADMIN_KEY=votre-clé`
+
+### Avec PM2
+
+```bash
+# Installer PM2
+npm install -g pm2
+
+# Démarrer
+pm2 start index.js --name "hunter-xmd"
+
+# Voir les logs
+pm2 logs hunter-xmd
+
+# Redémarrer
+pm2 restart hunter-xmd
+```
+
+## 🧪 Tests
+
+```bash
+# Exécuter tous les tests
+npm test
+
+# Tests de sécurité
+node tests/security.test.js
+
+# Tests de commandes
+node tests/commands.test.js
+```
+
+## 📊 Structure du projet
+
+```
+hunter-xmd/
+├── commands/              # Système de commandes
+│   ├── handler.js        # Gestionnaire de commandes
+│   └── modules/          # Fichiers de commandes
+├── middleware/           # Middlewares Express
+│   ├── auth.js          # Authentification
+│   └── rateLimiter.js   # Rate limiting
+├── routes/              # Routes API
+│   ├── auth.js          # Authentification
+│   ├── session.js       # Gestion sessions
+│   └── admin.js         # Panel admin
+├── utils/               # Utilitaires
+│   ├── database.js      # Gestion données
+│   ├── logger.js        # Logs
+│   └── security.js      # Fonctions sécurité
+├── whatsapp/            # Intégration Baileys
+│   └── baileys.js       # Classe Baileys
+├── public/              # Fichiers statiques
+│   ├── index.html       # Page authentification
+│   └── admin.html       # Dashboard admin
+├── tests/               # Tests
+├── config.js            # Configuration
+├── index.js             # Point d'entrée
+├── package.json         # Dépendances
+└── .env.example         # Variables d'environnement
+```
+
+## 🐛 Debugging
+
+Activez le mode debug:
+
+```bash
+DEBUG=true npm start
+```
+
+Consultez les logs:
+
+```bash
+# Tous les logs
+ls -la logs/
+
+# Logs d'aujourd'hui
+cat logs/2024-01-01.log
+```
+
+## 📄 License
+
+MIT License - Voir LICENSE pour les détails
+
+## 🤝 Support
+
+Besoin d'aide?
+
+- 📧 Email: support@kyrox-tech.com
+- 💬 Discord: [Rejoindre](https://discord.gg/...)
+- 📚 Docs: [Wiki](https://github.com/kyrox-tech/hunter-xmd/wiki)
+
+## ⭐ Crédits
+
+Créé avec ❤️ par **Kyrox Tech**
+
+Basé sur [Baileys](https://github.com/WhiskeySockets/Baileys)
